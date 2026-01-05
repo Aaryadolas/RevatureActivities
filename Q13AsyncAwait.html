@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Async Await</title>
+</head>
+<body>
+    <h1>Async Awiat Example</h1>
+    <button onclick="fetchData()">Fetch Data</button>
+    
+    <script>
+        const url ="https://jsonplaceholder.typicode.com/posts/1";
+    
+        
+            async  function fetchData(){
+                try{
+                const res = await fetch(url);
+                const data = await res.json();
+                console.log(data);
+            
+        }catch(error){
+            console.log("Error fetching data",error);
+        }
+    }
+      
+    </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>stringigy</title>
+</head>
+<body>
+    <script>
+        let user = {
+            username:"XYZ",
+            role:"Manager"
+        };
+        localStorage.setItem("userDetails",JSON.stringify(user));
+        console.log("User details save Successfully");
+        let usedetails = localStorage.getItem("userDetails");
+        let u = JSON.parse(usedetails);
+        console.log(u.username);
+        console.log(u.role);
+    </script>
+</body>
+</html>

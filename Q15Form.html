@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>form Validate</title>
+</head>
+<body>
+    <form id="myform">
+        <input type="text" id="username" placeholder="Enter Your Name">
+        <button type="submit">Submit</button>
+        <p id="error" style="color:red"></p>
+    </form>
+
+    <script>
+        const form = document.getElementById("myform");
+        form.addEventListener("submit", function(event){
+            event.preventDefault();
+
+    const input = document.getElementById("username").value;
+    const error = document.getElementById("error");
+
+    if (input === "") {
+      error.textContent = "Input cannot be empty!";
+    } else {
+      error.textContent = "";
+      console.log("Form submitted successfully");
+    }
+        });
+    </script>
+</body>
+</html>

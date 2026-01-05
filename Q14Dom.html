@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Manipulation</title>
+</head>
+<body>
+    <h2>Dynamic List Example</h2>
+
+    <ul id="myList">
+        <li>Item 1</li>
+        <li>Item 2</li>
+    </ul>
+    <button onclick="addItem()">Add Item</button>
+    <script>
+            function addItem(){
+                const selectUl = document.getElementById("myList");
+                const li = document.createElement("li");
+                li.textContent="New Item";
+                selectUl.append(li);
+            }
+    </script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Function Dec and Arrow Function</title>
+</head>
+<body>
+    
+    <script>
+        function CalculatedGST(price){
+            return price * 0.18;
+        }
+        console.log(CalculatedGST(1000));
+
+        const total = price => price * 0.18;
+        console.log(total(3000));
+    </script>
+
+</body>
+</html>

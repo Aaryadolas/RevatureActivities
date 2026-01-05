@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Closures</title>
+</head>
+<body>
+    <script>
+        function createCount(){
+            let count =0;
+            return function(){
+                count++;
+                return count;
+            };
+        }
+        const counter = createCount();
+        console.log(counter());
+        console.log(counter());
+        console.log(counter());
+
+    </script>
+</body>
+</html>

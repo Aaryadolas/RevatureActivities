@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Callbacl hell - Payment Processing</title>
+</head>
+<body>
+    <h2>CallBack Hell Payment Processing</h2>
+    <button onclick="startPayment()">Make Payment</button>
+    <script>
+        
+        function validateUser(callback){
+            setTimeout(()=>{
+                console.log("User Validated");
+                callback(true);
+            },1000);
+        }
+
+        function paymentProcess(callback){
+            setTimeout(()=>{
+                console.log("Payment Processed");
+                callback(true);
+            },1000);
+        }
+        function generatedInvoice(callback){
+            setTimeout(()=>{
+                console.log("Invoice Generated");
+            },1000);
+        }
+
+        function startPayment(){
+            validateUser(function(isValid){
+                if(isValid){
+                    paymentProcess(function(PaymentStatus){
+                        if(PaymentStatus){
+                            generatedInvoice(function (){
+                                console.log("Payment flow  complted");
+                            })
+                        }
+                    });
+                }
+            });
+        }
+        
+    </script>
+</body>
+</html>

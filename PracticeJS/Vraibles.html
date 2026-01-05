@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaiables and Datatypes</title>
+</head>
+<body>
+    <script>
+        //var is function scoped and global scoped. can be reassigned and redecalred
+                /*var age = 25; //globally declared
+                if(true){
+                    console.log(age);
+                }
+                console.log(age);
+
+                function f1(){
+                    var x = 10;
+                    console.log(x);
+                }
+                f1();*/
+    
+        //let is blocked scope: can be accessed inside block
+        let a = 30;
+        console.log(a);
+
+        {
+            let b = 10;
+            console.log(b);
+        }
+
+        let c = 44;
+        function f1(){
+            console.log(c);
+        }
+        f1();
+
+        /*{
+            let z = 678;
+        }
+        console.log(z);*/
+
+        //cont is varaible. once declared cannot be change.
+        const username ="arya";
+        console.log(username);
+        
+    </script>
+</body>
+</html>
