@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Mini Quiz Portal</title>
+
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<style>
+    body{
+        background: #f4f9ff;
+    }
+    .quiz-box{
+        max-width: 650px;
+        margin: 50px auto;
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .option{
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        cursor: pointer;
+    }
+    .option:hover{
+        background: #e7f1ff;
+    }
+    .selected{
+        background: #cfe2ff;
+        border-color: #0d6efd;
+    }
+</style>
+</head>
+
+<body>
+
+    
+<div class="quiz-box">
+    <h4 class="text-center mb-3">Mini Quiz Portal</h4>
+
+    <!-- Timers -->
+    <div class="d-flex justify-content-between mb-2">
+        <p><strong>Total Time:</strong> <span id="totalTime">60</span>s</p>
+        <p><strong>Question Time:</strong> <span id="qTime">10</span>s</p>
+    </div>
+
+    <!-- Progress -->
+    <div class="progress mb-3">
+        <div class="progress-bar" id="progressBar" style="width: 20%"></div>
+    </div>
+
+    <!-- Question -->
+    <h5 id="question"></h5>
+
+    <!-- Options -->
+    <div id="options"></div>
+
+    <!-- Buttons -->
+    <div class="d-flex justify-content-between mt-3">
+        <button class="btn btn-secondary" id="prevBtn" disabled>Previous</button>
+        <button class="btn btn-primary" id="nextBtn">Next</button>
+        <button class="btn btn-success d-none" id="submitBtn">Submit Quiz</button>
+    </div>
+</div>
+
+<script>
+const quizData = [
+    {
+        q: "What does HTML stand for?",
+        options: ["Hyper Text Markup Language", "High Text Machine Language", "Hyperlinks Text Mark Language", "None"],
+        ans: 0
+    },
+    {
+        q: "Which language is used for styling web pages?",
+        options: ["HTML", "JQuery", "CSS", "XML"],
+        ans: 2
+    },
+    {
+        q: "Which is not a JavaScript framework?",
+        options: ["React", "Angular", "Django", "Vue"],
+        ans: 2
+    },
+    {
+        q: "Bootstrap is used for?",
+        options: ["Backend", "Styling", "Database", "Server"],
+        ans: 1
+    },
+    {
+        q: "Which symbol is used for jQuery?",
+        options: ["#", "$", "@", "&"],
+        ans: 1
+    }
+];
+
+let index = 0;
+let score = 0;
+let answers = Array(quizData.length).fill(null);
+let qTime = 10;
+let totalTime = 60;
+let qTimer, totalTimer;
+
+function loadQuestion(){
+    clearInterval(qTimer);
+    qTime = 10;
+    $("#qTime").text(qTime);
+
+    $("#question").text(quizData[index].q);
+    $("#options").empty();
+
+    quizData[index].options.forEach((opt,i)=>{
+        let selectedClass = answers[index] === i ? "selected" : "";
+        $("#options").append(`
+            <div class="option ${selectedClass}" data-index="${i}">${opt}</div>
+        `);
+    });
+
+    $(".option").click(function(){
+        $(".option").removeClass("selected");
+        $(this).addClass("selected");
+        answers[index] = $(this).data("index");
+    });
+
+    $("#prevBtn").prop("disabled", index === 0);
+
+    if(index === quizData.length - 1){
+        $("#nextBtn").addClass("d-none");
+        $("#submitBtn").removeClass("d-none");
+    } else {
+        $("#nextBtn").removeClass("d-none");
+        $("#submitBtn").addClass("d-none");
+    }
+
+    $("#progressBar").css("width", ((index+1)/quizData.length)*100 + "%");
+
+    qTimer = setInterval(()=>{
+        qTime--;
+        $("#qTime").text(qTime);
+        if(qTime === 0){
+            clearInterval(qTimer);
+            nextQuestion();
+        }
+    },1000);
+}
+
+function nextQuestion(){
+    if(index < quizData.length - 1){
+        index++;
+        loadQuestion();
+    }
+}
+
+function prevQuestion(){
+    if(index > 0){
+        index--;
+        loadQuestion();
+    }
+}
+
+function submitQuiz(){
+    clearInterval(qTimer);
+    clearInterval(totalTimer);
+
+    score = 0;
+    answers.forEach((ans,i)=>{
+        if(ans === quizData[i].ans) score++;
+    });
+
+    $(".quiz-box").html(`
+        <h3 class="text-center">Quiz Submitted 🎉</h3>
+        <p class="text-center">Your Score: <strong>${score} / ${quizData.length}</strong></p>
+    `);
+}
+
+$("#nextBtn").click(nextQuestion);
+$("#prevBtn").click(prevQuestion);
+$("#submitBtn").click(submitQuiz);
+
+totalTimer = setInterval(()=>{
+    totalTime--;
+    $("#totalTime").text(totalTime);
+    if(totalTime === 0){
+        submitQuiz();
+    }
+},1000);
+
+loadQuestion();
+</script>
+
+</body>
+</html>
